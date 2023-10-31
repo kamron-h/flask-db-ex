@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Update</title>
+</head>
+<body>
+
+<h2>Items in Basket A</h2>
+<ul>
+    {% for item in basket_a %}
+        <li>ID: {{ item[0] }}   Fruit: {{ item[1] }}</li>
+    {% endfor %}
+</ul>
+
+<h2>Items in Basket B</h2>
+<ul>
+    {% for item in basket_b %}
+        <li>ID: {{ item[0] }}   Fruit: {{ item[1] }}</li>
+    {% endfor %}
+</ul>
+
+<!-- Update Basket A Section -->
+<h2>Update Basket A</h2>
+<form id="updateForm">
+    <label for="itemId">Item ID:</label>
+    <input type="number" id="itemId" name="id" required>
+    <label for="newFruit">New Fruit:</label>
+    <input type="text" id="newFruit" name="fruit_a" required>
+    <button type="submit">Update</button>
+</form>
+<p id="updateMessage"></p>
+
+<script>
+    // Handle the update form submission
+    $("#updateForm").submit(function(event) {
+        event.preventDefault();
+        const formData = {
+            id: $("#itemId").val(),
+            fruit_a: $("#newFruit").val()
+        };
+        $.post("/api/update_basket_a", formData, function(response) {
+            $("#updateMessage").text(response.message);
+        }).fail(function(error) {
+            $("#updateMessage").text(error.responseJSON.error);
+        });
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Baskets Management</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+
+<h2>Items in Basket A</h2>
+<ul>
+    {% for item in basket_a %}
+        <li>ID: {{ item[0] }}   Fruit: {{ item[1] }}</li>
+    {% endfor %}
+</ul>
+
+<h2>Items in Basket B</h2>
+<ul>
+    {% for item in basket_b %}
+        <li>ID: {{ item[0] }}   Fruit: {{ item[1] }}</li>
+    {% endfor %}
+</ul>
+
+<!-- Update Basket A Section -->
+<h2>Update Basket A</h2>
+<form id="updateForm">
+    <label for="itemId">Item ID:</label>
+    <input type="number" id="itemId" name="id" required>
+    <label for="newFruit">New Fruit:</label>
+    <input type="text" id="newFruit" name="fruit_a" required>
+    <button type="submit">Update</button>
+</form>
+<p id="updateMessage"></p>
+
+<!-- Display Unique Items Section -->
+<h2>Unique Items from Both Baskets</h2>
+<button id="fetchUnique">Fetch Unique Items</button>
+<ul id="uniqueList"></ul>
+
+<script>
+    // Handle the update form submission
+    $("#updateForm").submit(function(event) {
+        event.preventDefault();
+        const formData = {
+            id: $("#itemId").val(),
+            fruit_a: $("#newFruit").val()
+        };
+        $.post("/api/update_basket_a", formData, function(response) {
+            $("#updateMessage").text(response.message);
+        }).fail(function(error) {
+            $("#updateMessage").text(error.responseJSON.error);
+        });
+    });
+
+    // Fetch unique items from both baskets
+    $("#fetchUnique").click(function() {
+        $.get("/api/unique", function(response) {
+            const uniqueItems = response.unique_items;
+            $("#uniqueList").empty();
+            uniqueItems.forEach(function(item) {
+                $("#uniqueList").append(`<li>${item}</li>`);
+            });
+        }).fail(function(error) {
+            alert("Failed to fetch unique items: " + error.responseJSON.error);
+        });
+    });
+</script>
+
+</body>
+</html>

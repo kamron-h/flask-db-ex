@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Unique</title>
+</head>
+<body>
+
+<!-- Display Unique Items Section -->
+<h2>Unique Items from Both Baskets</h2>
+<button id="fetchUnique">Fetch Unique Items</button>
+<ul id="uniqueList"></ul>
+
+<script>
+    // Fetch unique items from both baskets
+    $("#fetchUnique").click(function() {
+        $.get("/api/unique", function(response) {
+            const uniqueItems = response.unique_items;
+            $("#uniqueList").empty();
+            uniqueItems.forEach(function(item) {
+                $("#uniqueList").append(`<li>${item}</li>`);
+            });
+        }).fail(function(error) {
+            alert("Failed to fetch unique items: " + error.responseJSON.error);
+        });
+    });
+</script>
+</body>
+</html>

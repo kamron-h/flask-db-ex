@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Baskets</title>
+</head>
+<body>
+    <p id="updateMessage"></p>
+    <h1>Basket A</h1>
+    <ul>
+        {% for item in basket_a %}
+            <li>{{ item[1] }}</li>  <!-- Assuming the second column is the fruit name -->
+        {% endfor %}
+    </ul>
+
+    <h1>Basket B</h1>
+    <ul>
+        {% for item in basket_b %}
+            <li>{{ item[1] }}</li>  <!-- Assuming the second column is the fruit name -->
+        {% endfor %}
+    </ul>
+
+    <button id="updateBasketA" onclick="location.href='/api/update_basket_a'">Update Basket A</button>
+    <button id="viewUnique" onclick="location.href='/api/unique'">View Unique Fruits</button>
+    <button onclick="location.href='/'">Refresh</button>
+{#    <button id="updateAndView" onclick="location.href='/api/baskets'">Update Basket A & View Unique Fruits</button>#}
+<br>
+</body>
+</html>
