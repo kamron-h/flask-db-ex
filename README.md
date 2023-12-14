@@ -11,8 +11,8 @@ This Flask application provides an interface to manage two fruit baskets, `baske
 
 1. **Clone the Repository**:
    ```bash
-   git clone [the-repository-link]
-   cd [repository-name]
+   git clone https://github.com/kamron-h/flask-db-ex.git
+   cd flask-db-ex
 2. **Set Up a Virtual Environment**:
    ```bash
    python3 -m venv venv
